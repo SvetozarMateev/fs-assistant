@@ -8,6 +8,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "npm run build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SvetozarMateev/fs-assistant.git"
+  },
   "author": "Svetozar Mateev",
   "license": "MIT",
   "devDependencies": {
