@@ -61,7 +61,7 @@ class Assistant implements AssistantAPI {
 
     public makeDir = async (location: string) => {
         if (!location) {
-            throw new Error(`The location ${location} is not valid.`;)
+            throw new Error(`The location ${location} is not valid.`);
         }
 
         await pfs.makeDir(location);
