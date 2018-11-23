@@ -1,0 +1,6 @@
+node_modules/**/*
+testScripts/**/*
+src_js/**/*
+.npmignore
+package-lock.json
+dist/**/*
