@@ -11,14 +11,13 @@
             "es2015"
         ],
         "types": [
-            "@types/node"
-        ],
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+            "@types/node",
+            "@types/mocha",
+            "@types/chai"
+        ]
     },
     "include": [
         "src/**/*.ts",
-        "ui/**/*.ts"
     ],
     "exclude": [
         "node_modules",

@@ -7,7 +7,7 @@ describe("replaceStringInFile()", () => {
     const resultString = "Replace this -> = with a =";
     const resultStringNoReplacement = "Replace this ->  with a ="
 
-    const pathToFile = "./tesFile.txt";
+    const pathToFile = "./testFile.txt";
 
     beforeEach((done) => {
         console.log("before")
@@ -15,6 +15,11 @@ describe("replaceStringInFile()", () => {
             done(err);
         });
         console.log("File ready")
+    })
+
+    after(()=>{
+        
+        fs.unlinkSync(pathToFile);
     })
 
     it("Should resolve the promise when the pattern is a string", async () => {

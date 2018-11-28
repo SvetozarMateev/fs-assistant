@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc && webpack --config ./build/webpack.config.js && node ./build/scripts/generateTypings.js",
     "test": "npm run test:integration",
-    "test:integration": "mocha ./tests/integration -r ts-node",
+    "test:integration": "mocha --require ts-node/register test/**/*.spec.ts",
     "prepare": "npm run build"
   },
   "repository": {
@@ -16,13 +16,15 @@
   "author": "Svetozar Mateev",
   "license": "MIT",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.7",
+    "@types/rimraf": "^2.0.2",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },
-  "dependencies": {
-    "@types/mocha": "^5.2.5"
-  }
+  "dependencies": {}
 }
