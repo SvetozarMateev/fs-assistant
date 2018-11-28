@@ -68,4 +68,4 @@ class Assistant implements AssistantAPI {
     }
 }
 
-export = new Assistant();
+export default new Assistant();

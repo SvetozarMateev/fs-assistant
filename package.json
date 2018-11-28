@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc && webpack --config ./build/webpack.config.js && node ./build/scripts/generateTypings.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test:integration",
+    "test:integration": "mocha ./tests/integration -r ts-node",
     "prepare": "npm run build"
   },
   "repository": {
@@ -16,6 +17,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^10.12.7",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "@types/mocha": "^5.2.5"
   }
 }

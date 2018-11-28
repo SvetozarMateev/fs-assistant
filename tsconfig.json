@@ -7,7 +7,8 @@
         "outDir": "src_js",
         "target": "es6",
         "lib": [
-            "es7"
+            "es7",
+            "es2015"
         ],
         "types": [
             "@types/node"
