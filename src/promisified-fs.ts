@@ -3,7 +3,7 @@ import * as path from "path";
 
 
 class PromisifiedFs {
-    
+
     public readFile(pathToFile: string): Promise<string> {
         return new Promise((res, rej) => {
             fs.readFile(pathToFile, "utf-8", (err, data) => {
@@ -29,7 +29,7 @@ class PromisifiedFs {
 
     public async copyDir(entryPoint: string, outputLocation: string) {
         if (!fs.existsSync(path.resolve(outputLocation))) {
-            await this.makeDir(path.resolve( outputLocation));
+            await this.makeDir(path.resolve(outputLocation));
         }
         const traverseDirs = async (currLocation, outputLocationFull) => {
             await fs.readdir(currLocation, async (err, data) => {
@@ -76,6 +76,17 @@ class PromisifiedFs {
             });
         });
 
+    }
+
+    public async deleteFile(location: string) {
+        return new Promise((res, rej) => {
+            fs.unlink(location, (err) => {
+                if (err) {
+                    rej(err);
+                }
+                res();
+            })
+        })
     }
 }
 

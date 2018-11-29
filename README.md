@@ -19,3 +19,6 @@ Promisified version of fs copyFile.
 
 ### makeDir (location: string) => Promise<void>
 Promisified version of fs makeDir.
+
+### deleteFile (location: string) => Promise<void>
+Deletes the specified file.

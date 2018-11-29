@@ -66,6 +66,14 @@ class Assistant implements AssistantAPI {
 
         await pfs.makeDir(location);
     }
+
+    public deleteFile = async (location:string)=>{
+        if (!location) {
+            throw new Error(`The location ${location} is not valid.`);
+        }
+
+        await pfs.deleteFile(location);
+    }
 }
 
 export default new Assistant();
