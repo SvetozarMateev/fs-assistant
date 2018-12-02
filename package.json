@@ -24,5 +24,6 @@
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },
+  "keywords":["node","fs","recursive","typescript","file","copy","promise"],
   "dependencies": {}
 }
