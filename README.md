@@ -1,5 +1,11 @@
 # fs-assistant
 
+![](https://badgen.net/npm/v/fs-assistant)
+![](https://img.shields.io/bundlephobia/min/fs-assistant.svg)
+![](https://img.shields.io/npm/types/fs-assistant.svg)
+![](https://img.shields.io/npm/l/fs-assistant.svg)
+
+
 fs-assistant is a simple library that gives you recursive folder copying, simplified file overrides and promisified fs functions.
 
 ```javascript
