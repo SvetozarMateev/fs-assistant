@@ -31,6 +31,7 @@ class PromisifiedFs {
         if (!fs.existsSync(path.resolve(outputLocation))) {
             await this.makeDir(path.resolve(outputLocation));
         }
+
         const traverseDirs = async (currLocation, outputLocationFull) => {
             await fs.readdir(currLocation, async (err, data) => {
                 if (err) {
@@ -87,6 +88,12 @@ class PromisifiedFs {
                 res();
             })
         })
+    }
+
+    public async renameFile(fileLocation: string, newName: string) {
+        const newLocation = path.join(path.dirname(fileLocation), newName);
+        await this.copyFile(fileLocation, newLocation);
+        await this.deleteFile(fileLocation);
     }
 }
 

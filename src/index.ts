@@ -67,12 +67,24 @@ class Assistant implements AssistantAPI {
         await pfs.makeDir(location);
     }
 
-    public deleteFile = async (location:string)=>{
+    public deleteFile = async (location: string) => {
         if (!location) {
             throw new Error(`The location ${location} is not valid.`);
         }
 
         await pfs.deleteFile(location);
+    }
+
+    public renameFile = async (fileLocation: string, newFileName: string) => {
+        if (!fileLocation) {
+            throw new Error(`The file is missing`);
+        }
+
+        if (!newFileName) {
+            throw new Error(`The new file name is missing`);
+        }
+
+        await pfs.renameFile(fileLocation, newFileName)
     }
 }
 

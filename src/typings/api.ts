@@ -6,4 +6,5 @@ export interface AssistantAPI {
     copyFile: (from: string, to: string) => Promise<void>;
     makeDir: (location: string) => Promise<void>;
     deleteFile: (location: string) => Promise<void>;
+    renameFile: (fileLocation: string, newFileName: string) => Promise<void>;
 } 

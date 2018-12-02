@@ -3,6 +3,7 @@
   "version": "0.0.5",
   "description": "Making annoying fs operations easier",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && webpack --config ./build/webpack.config.js && node ./build/scripts/generateTypings.js",
     "test": "npm run test:integration",
