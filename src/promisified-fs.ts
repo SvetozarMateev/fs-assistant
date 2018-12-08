@@ -41,7 +41,7 @@ class PromisifiedFs {
             await this.makeDir(resolve(outputLocation));
         }
 
-        const traverseDirs = async (currLocation, outputLocationFull) => {
+        const traverseDirs = async (currLocation: string, outputLocationFull: string) => {
             await readdir(currLocation, async (err, data) => {
                 if (err) {
                     throw new Error(err.message);

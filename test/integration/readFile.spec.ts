@@ -7,7 +7,7 @@ import { expect } from "chai";
 describe("readFile()",()=>{
     const pathToFile =resolve("./test.txt");
     const contentOfFile = "This is a test file";
-    
+
     before(()=>{
         writeFileSync(pathToFile,contentOfFile);
     })
@@ -27,6 +27,12 @@ describe("readFile()",()=>{
 
     it("Should reject its promsie when the path is not correct", (done)=>{
         assistant.readFile("missingfile.txt")
+        .then(()=>done("Should throw an error"))
+        .catch(()=>done());
+    })
+
+    it("Should reject its promsie when the path is undefined", (done)=>{
+        assistant.readFile(undefined)
         .then(()=>done("Should throw an error"))
         .catch(()=>done());
     })
