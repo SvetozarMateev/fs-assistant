@@ -1,6 +1,6 @@
 {
   "name": "fs-assistant",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Making annoying fs operations easier",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,6 +24,6 @@
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
   },
-  "keywords":["node","fs","recursive","typescript","file","copy","promise"],
+  "keywords":["node","fs","recursive","typescript","file","copy","promise","path"],
   "dependencies": {}
 }

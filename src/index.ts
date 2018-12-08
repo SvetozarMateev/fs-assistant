@@ -86,6 +86,14 @@ class Assistant implements AssistantAPI {
 
         await pfs.renameFile(fileLocation, newFileName)
     }
+
+    public isPath = (stringToCheck: string)=>{
+        if( typeof stringToCheck !== 'string'){
+            return false;
+        }
+        
+        return pfs.isPath(stringToCheck);
+    }
 }
 
 export default new Assistant();
