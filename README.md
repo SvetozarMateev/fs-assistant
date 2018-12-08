@@ -48,3 +48,8 @@ Deletes the specified file.
 renameFile (fileLocation: string, newFileName: string) => Promise<void>
 ```
 Renames the specified file
+
+```javascript
+isPath (stringToCheck: string) => boolean
+```
+Checks if the given string is a valid path. You can check all covered cases [here](https://github.com/SvetozarMateev/fs-assistant/blob/master/test/integration/isPath.spec.ts).
