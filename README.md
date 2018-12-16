@@ -53,3 +53,14 @@ Renames the specified file
 isPath (stringToCheck: string) => boolean
 ```
 Checks if the given string is a valid path. You can check all covered cases [here](https://github.com/SvetozarMateev/fs-assistant/blob/master/test/integration/isPath.spec.ts).
+
+```javascript
+flattenDir (dirLocation: string, newLocation: string) => Promise<void>
+```
+Moves all files from a directory (recursively) to a new directory.
+For example if you have the directory `./myFiles` with a file `./myFiles/myFile.txt` and a nested directory `./myFiles/nestedFiles` which contains `./myFiles/nestedFiles/nestedFile.txt` the flattenDir function will move both files to the same level in a new output directory.
+
+```javascript
+getFilesInDir(dirLocations: string) => Promise<FileDetails[]>
+```
+Returns an array with all file names and locations in a directory (recursively). Note that the location property in FileDetails represents the path + the name of the file.
