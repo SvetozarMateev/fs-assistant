@@ -10,6 +10,7 @@ export interface AssistantAPI {
     isPath: (stringToCheck: string) => boolean;
     getFilesInDir: (dirLocation: string) => Promise<FileDetails[]>;
     flattenDir: (dirLocations: string, newDirLocations: string) => Promise<void>;
+    readDir: (dir: string) => Promise<string[]>;
 }
 
 export interface FileDetails {

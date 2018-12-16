@@ -2,7 +2,6 @@ import { resolve, dirname, basename } from "path";
 import { unlinkSync, readdirSync, readFileSync } from "fs";
 import assistant from "../../src/index";
 import { expect } from "chai";
-import { doesNotReject } from "assert";
 
 describe("writeFile()", () => {
 

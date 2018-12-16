@@ -36,7 +36,9 @@ class Assistant implements AssistantAPI {
         if (!fileLocation) {
             throw new Error("The file location must be specified");
         }
+
         const contents = await pfs.readFile(fileLocation);
+
         return contents;
     }
 
@@ -112,6 +114,14 @@ class Assistant implements AssistantAPI {
         }
 
         await pfs.flattenDir(dirLocation, newDirLocation);
+    }
+
+    public readDir = async (dir: string) => {
+        if (typeof dir !== "string") {
+            throw new Error(`The ${dir} argument should be a string`);
+        }
+
+        return pfs.readDir(dir);
     }
 }
 

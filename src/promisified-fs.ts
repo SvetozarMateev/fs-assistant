@@ -54,23 +54,21 @@ class PromisifiedFs {
         }
 
         const traverseDirs = async (currLocation: string, outputLocationFull: string) => {
-            await readdir(currLocation, async (err: Error, data: string[]) => {
-                if (err) {
-                    throw new Error(err.message);
-                }
-                await data.forEach(async (dir) => {
-                    const currLocationFull = resolve(currLocation, dir);
-                    const currLocationDist = resolve(outputLocationFull, dir);
-                    if (lstatSync(currLocationFull).isDirectory()) {
-                        if (!existsSync(currLocationDist)) {
-                            await this.makeDir(currLocationDist);
-                        }
-                        await traverseDirs(currLocationFull, currLocationDist);
-                    } else {
-                        await this.copyFile(currLocationFull, currLocationDist);
+            const files = await this.readDir(currLocation);
+            const traversePromises = files.map(async (dir) => {
+                const currLocationFull = resolve(currLocation, dir);
+                const currLocationDist = resolve(outputLocationFull, dir);
+                if (lstatSync(currLocationFull).isDirectory()) {
+                    if (!existsSync(currLocationDist)) {
+                        await this.makeDir(currLocationDist);
                     }
-                });
+                    await traverseDirs(currLocationFull, currLocationDist);
+                } else {
+                    await this.copyFile(currLocationFull, currLocationDist);
+                }
             });
+
+            await Promise.all(traversePromises);
         };
 
         await traverseDirs(entryPoint, resolve(outputLocation));

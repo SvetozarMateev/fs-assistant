@@ -1,6 +1,6 @@
 {
   "name": "fs-assistant",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Making annoying fs operations easier",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,7 +37,8 @@
     "file",
     "copy",
     "promise",
-    "path"
+    "path",
+    "flatten"
   ],
   "dependencies": {}
 }
