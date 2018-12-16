@@ -123,6 +123,22 @@ class Assistant implements AssistantAPI {
 
         return pfs.readDir(dir);
     }
+
+    public getDirsInDir = async (dir: string) => {
+        if (typeof dir !== "string") {
+            throw new Error(`The dir argument must be string not ${typeof dir}`);
+        }
+
+        return await pfs.getDirsInDir(dir);
+    }
+
+    public getItemsInDir = async (dir: string) => {
+        if (typeof dir !== "string") {
+            throw new Error(`The dir argument must be string not ${typeof dir}`);
+        }
+
+        return await pfs.getItemsInDir(dir);
+    }
 }
 
 export default new Assistant();

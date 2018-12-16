@@ -9,7 +9,7 @@ import {
     lstatSync
 } from "fs";
 import { join, resolve, dirname } from "path";
-import { FileDetails } from "./typings/api";
+import { FileDetails, FileSystemItemDetails, DirectoryDetails } from "./typings/api";
 
 class PromisifiedFs {
 
@@ -137,19 +137,76 @@ class PromisifiedFs {
     }
 
     public async getAllFilesInDir(location: string): Promise<FileDetails[]> {
-        const files: FileDetails[] = [];
+        // const files: FileDetails[] = [];
+
+        // const traverseDirs = async (currLocation: string) => {
+        //     const currContents = await this.readDir(currLocation);
+        //     const traversalPromises = currContents.map(async (dir) => {
+        //         const currLocationFull = resolve(currLocation, dir);
+        //         if (lstatSync(currLocationFull).isDirectory()) {
+        //             await traverseDirs(currLocationFull);
+        //         } else {
+        //             files.push({
+        //                 name: dir,
+        //                 location: currLocationFull
+        //             });
+        //         }
+        //     });
+        //     await Promise.all(traversalPromises);
+        // };
+
+        // await traverseDirs(location);
+
+        // return files;
+
+        const allItems = await this.getItemsInDir(location);
+
+        return allItems.filter((i) => i.type === "File");
+    }
+
+    public async getDirsInDir(location: string): Promise<DirectoryDetails[]> {
+        const allItems = await this.getItemsInDir(location);
+
+        return allItems.filter((i) => i.type === "Directory").map((i) => {
+            return {
+                name: i.name,
+                files: i.files || [],
+                location: i.location
+            };
+        });
+    }
+
+    public async getItemsInDir(location: string): Promise<FileSystemItemDetails[]> {
+        const items: FileSystemItemDetails[] = [];
 
         const traverseDirs = async (currLocation: string) => {
             const currContents = await this.readDir(currLocation);
             const traversalPromises = currContents.map(async (dir) => {
                 const currLocationFull = resolve(currLocation, dir);
                 if (lstatSync(currLocationFull).isDirectory()) {
+                    items.push({
+                        type: "Directory",
+                        name: dir,
+                        location: currLocationFull,
+                        files: []
+                    });
                     await traverseDirs(currLocationFull);
                 } else {
-                    files.push({
+                    const currFsItem: FileSystemItemDetails = {
                         name: dir,
-                        location: currLocationFull
-                    });
+                        location: currLocationFull,
+                        type: "File"
+                    };
+
+                    items.push(currFsItem);
+
+                    const parentDir = items.find((i) => i.location === dirname(currLocationFull));
+                    if (parentDir && parentDir.files) {
+                        parentDir.files.push({
+                            name: dir,
+                            location: currLocationFull
+                        });
+                    }
                 }
             });
             await Promise.all(traversalPromises);
@@ -157,7 +214,7 @@ class PromisifiedFs {
 
         await traverseDirs(location);
 
-        return files;
+        return items;
     }
 
     public async flattenDir(location: string, newLocation: string) {
