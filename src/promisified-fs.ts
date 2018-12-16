@@ -10,23 +10,22 @@ import {
 } from "fs";
 import { join, resolve, dirname } from "path";
 
-
 class PromisifiedFs {
 
     public readFile(pathToFile: string): Promise<string> {
         return new Promise((res, rej) => {
-            readFile(pathToFile, "utf-8", (err, data) => {
+            readFile(pathToFile, "utf-8", (err: Error, data: string) => {
                 if (err) {
                     return rej(err);
                 }
                 return res(data);
-            })
-        })
+            });
+        });
     }
 
     public writeFile(pathToFile: string, contents: any): Promise<void> {
         return new Promise((res, rej) => {
-            writeFile(pathToFile, contents, (err) => {
+            writeFile(pathToFile, contents, (err: Error) => {
                 if (err) {
                     return rej(err);
                 }
@@ -42,7 +41,7 @@ class PromisifiedFs {
         }
 
         const traverseDirs = async (currLocation: string, outputLocationFull: string) => {
-            await readdir(currLocation, async (err, data) => {
+            await readdir(currLocation, async (err: Error, data: string[]) => {
                 if (err) {
                     throw new Error(err.message);
                 }
@@ -66,11 +65,10 @@ class PromisifiedFs {
 
     public async makeDir(location: string) {
         return new Promise((res, rej) => {
-            mkdir(location, (err) => {
+            mkdir(location, (err: Error) => {
                 if (err) {
                     rej(err);
                 }
-                console.log(`Made dir ${location}`);
                 res();
             });
         });
@@ -78,7 +76,7 @@ class PromisifiedFs {
 
     public async copyFile(from: string, to: string) {
         return new Promise((res, rej) => {
-            copyFile(from, to, (err) => {
+            copyFile(from, to, (err: Error) => {
                 if (err) {
                     return rej(err);
                 }
@@ -90,13 +88,13 @@ class PromisifiedFs {
 
     public async deleteFile(location: string) {
         return new Promise((res, rej) => {
-            unlink(location, (err) => {
+            unlink(location, (err: Error) => {
                 if (err) {
                     rej(err);
                 }
                 res();
-            })
-        })
+            });
+        });
     }
 
     public async renameFile(fileLocation: string, newName: string) {
@@ -112,15 +110,15 @@ class PromisifiedFs {
             return true;
         }
         // checking for paths like // \\ ////
-        if(/^[\\\/]+$/.test(stringToCheck)){
+        if (/^[\\\/]+$/.test(stringToCheck)) {
             return false;
         }
         // checking if the path contains too many dots
-        if(/\.{3,}/.test(stringToCheck)){
+        if (/\.{3,}/.test(stringToCheck)) {
             return false;
         }
         // checking for paths that are just a file like myFile.txt, my file.txt or just folders like desktop
-        if(/^[a-zA-Z1-9 %&]+(\.[a-zA-Z1-9]+)*$/.test(stringToCheck)){
+        if (/^[a-zA-Z1-9 %&]+(\.[a-zA-Z1-9]+)*$/.test(stringToCheck)) {
             return true;
         }
         // all normal paths

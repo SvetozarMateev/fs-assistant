@@ -42,7 +42,7 @@ describe("writeFile()", () => {
     })
 
     it("Should throw an error when the file location is missing", (done) => {
-        assistant.writeFile(undefined, newFileContent).then(() => {
+        assistant.writeFile( (undefined as any), newFileContent).then(() => {
             done("Should reject the promise");
         }).catch(() => {
             done();

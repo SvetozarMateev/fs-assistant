@@ -37,7 +37,7 @@ class Assistant implements AssistantAPI {
             throw new Error("The file location must be specified");
         }
         const contents = await pfs.readFile(fileLocation);
-        return contents
+        return contents;
     }
 
     public writeFile = async (newFileLocation: string, contents: any) => {
@@ -84,14 +84,14 @@ class Assistant implements AssistantAPI {
             throw new Error(`The new file name is missing`);
         }
 
-        await pfs.renameFile(fileLocation, newFileName)
+        await pfs.renameFile(fileLocation, newFileName);
     }
 
-    public isPath = (stringToCheck: string)=>{
-        if( typeof stringToCheck !== 'string'){
+    public isPath = (stringToCheck: string) => {
+        if (typeof stringToCheck !== "string") {
             return false;
         }
-        
+
         return pfs.isPath(stringToCheck);
     }
 }

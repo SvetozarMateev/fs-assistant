@@ -4,36 +4,36 @@ import rimraf = require("rimraf");
 import assistant from "../../src/index";
 import { expect } from "chai";
 
-describe("readFile()",()=>{
-    const pathToFile =resolve("./test.txt");
+describe("readFile()", () => {
+    const pathToFile = resolve("./test.txt");
     const contentOfFile = "This is a test file";
 
-    before(()=>{
-        writeFileSync(pathToFile,contentOfFile);
-    })
+    before(() => {
+        writeFileSync(pathToFile, contentOfFile);
+    });
 
-    after((done)=>{
-        rimraf(pathToFile,done);
-    })
+    after((done) => {
+        rimraf(pathToFile, done);
+    });
 
-    it("Should resolve its promise when the arguments are correct", async()=>{
-        await assistant.readFile(pathToFile);    
-    })
+    it("Should resolve its promise when the arguments are correct", async () => {
+        await assistant.readFile(pathToFile);
+    });
 
-    it("Should return the contents of the file when the path is correct", async()=>{
-        const contents = await assistant.readFile(pathToFile);   
+    it("Should return the contents of the file when the path is correct", async () => {
+        const contents = await assistant.readFile(pathToFile);
         expect(contents).to.equal(contentOfFile);
-    })
+    });
 
-    it("Should reject its promsie when the path is not correct", (done)=>{
+    it("Should reject its promsie when the path is not correct", (done) => {
         assistant.readFile("missingfile.txt")
-        .then(()=>done("Should throw an error"))
-        .catch(()=>done());
-    })
+            .then(() => done("Should throw an error"))
+            .catch(() => done());
+    });
 
-    it("Should reject its promsie when the path is undefined", (done)=>{
-        assistant.readFile(undefined)
-        .then(()=>done("Should throw an error"))
-        .catch(()=>done());
-    })
-})
+    it("Should reject its promsie when the path is undefined", (done) => {
+        assistant.readFile((undefined as any))
+            .then(() => done("Should throw an error"))
+            .catch(() => done());
+    });
+});

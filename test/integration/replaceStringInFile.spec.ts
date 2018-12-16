@@ -17,8 +17,8 @@ describe("replaceStringInFile()", () => {
         console.log("File ready")
     })
 
-    after(()=>{
-        
+    after(() => {
+
         fs.unlinkSync(pathToFile);
     })
 
@@ -48,7 +48,7 @@ describe("replaceStringInFile()", () => {
     });
 
     it("Should replace the string with nothing when the pattern is a regex and the replacement string is undefined", async () => {
-        await assistant.replaceStringInFile(pathToFile, /\*/, undefined);
+        await assistant.replaceStringInFile(pathToFile, /\*/, (undefined as any));
 
         const fileContents = fs.readFileSync(pathToFile, 'utf-8');
 
@@ -56,7 +56,7 @@ describe("replaceStringInFile()", () => {
     });
 
     it("Should replace the string with nothing when the pattern is a string and the replacement string is undefined", async () => {
-        await assistant.replaceStringInFile(pathToFile, "*", undefined);
+        await assistant.replaceStringInFile(pathToFile, "*",  (undefined as any));
 
         const fileContents = fs.readFileSync(pathToFile, 'utf-8');
 
@@ -64,13 +64,13 @@ describe("replaceStringInFile()", () => {
     });
 
     it("Should reject the promise when a path is not provided", (done) => {
-        assistant.replaceStringInFile(undefined, "*", "=")
+        assistant.replaceStringInFile( (undefined as any), "*", "=")
             .then(() => done("Should throw an error"))
             .catch(() => done());
     });
 
     it("Should reject the promise when a pattern is not provided", (done) => {
-        assistant.replaceStringInFile(pathToFile, undefined, "=")
+        assistant.replaceStringInFile(pathToFile,  (undefined as any), "=")
             .then(() => done("Should throw an error"))
             .catch(() => done());
     });

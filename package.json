@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && webpack --config ./build/webpack.config.js && node ./build/scripts/generateTypings.js",
+    "lint": "tslint -c tslint.json  'src/**/*.ts'",
     "test": "npm run test:integration",
     "test:integration": "mocha --require ts-node/register test/**/*.spec.ts",
     "prepare": "npm run build && npm run test"
@@ -19,11 +20,24 @@
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.15",
+    "@types/rimraf": "^2.0.2",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
     "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
     "typescript": "^3.1.6"
   },
-  "keywords":["node","fs","recursive","typescript","file","copy","promise","path"],
+  "keywords": [
+    "node",
+    "fs",
+    "recursive",
+    "typescript",
+    "file",
+    "copy",
+    "promise",
+    "path"
+  ],
   "dependencies": {}
 }

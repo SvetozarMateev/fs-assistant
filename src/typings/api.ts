@@ -7,4 +7,5 @@ export interface AssistantAPI {
     makeDir: (location: string) => Promise<void>;
     deleteFile: (location: string) => Promise<void>;
     renameFile: (fileLocation: string, newFileName: string) => Promise<void>;
-} 
+    isPath: (stringToCheck: string) => boolean;
+}

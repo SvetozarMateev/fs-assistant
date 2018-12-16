@@ -17,16 +17,16 @@ describe("renameFile()", () => {
     afterEach(() => {
         try {
             unlinkSync(newFilePath);
-        } catch (e) {}
+        } catch (e) { }
 
         try {
             unlinkSync(sampleFilePath);
-        } catch (e) {}      
-    })
+        } catch (e) { };
+    });
 
     it("Should resolve the promise when all parameters are correct", async () => {
         await assistant.renameFile(sampleFilePath, newFileName);
-    })
+    });
 
     it("Should remove the file with the previus name when all parameters are correct", async () => {
         await assistant.renameFile(sampleFilePath, newFileName);
@@ -34,7 +34,7 @@ describe("renameFile()", () => {
         const hasFileWithOldName = readdirSync(currentDir).some((file) => file === oldFileName);
 
         expect(hasFileWithOldName).to.be.false;
-    })
+    });
 
     it("Should add a new file with the new name when all parameters are correct", async () => {
         await assistant.renameFile(sampleFilePath, newFileName);
@@ -42,7 +42,7 @@ describe("renameFile()", () => {
         const hasFileWithNewName = readdirSync(currentDir).some((file) => file === newFileName);
 
         expect(hasFileWithNewName).to.be.true;
-    })
+    });
 
     it("Should add a new file with the same contents as the old file when all parameters are correct", async () => {
         await assistant.renameFile(sampleFilePath, newFileName);
@@ -53,18 +53,18 @@ describe("renameFile()", () => {
     })
 
     it("Should throw an error when the path to the file is undefined", (done) => {
-        assistant.renameFile(undefined, newFileName).then(() => {
+        assistant.renameFile((undefined as any), newFileName).then(() => {
             done("The method should reject its promise");
         }).catch(() => {
             done();
-        })
-    })
+        });
+    });
 
     it("Should throw an error when the name of the new file is undefined", (done) => {
-        assistant.renameFile(sampleFilePath, undefined).then(() => {
+        assistant.renameFile(sampleFilePath, (undefined as any)).then(() => {
             done("The method should reject its promise");
         }).catch(() => {
             done();
-        })
-    })
-})
+        });
+    });
+});
