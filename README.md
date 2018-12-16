@@ -61,7 +61,7 @@ Moves all files from a directory (recursively) to a new directory.
 For example if you have the directory `./myFiles` with a file `./myFiles/myFile.txt` and a nested directory `./myFiles/nestedFiles` which contains `./myFiles/nestedFiles/nestedFile.txt` the flattenDir function will move both files to the same level in a new output directory.
 
 ```javascript
-getFilesInDir(dirLocations: string) => Promise<FileDetails[]>
+getFilesInDir(dirLocation: string) => Promise<FileDetails[]>
 ```
 Returns an array with all file names and locations in a directory (recursively). Note that the location property in FileDetails represents the path + the name of the file.
 
@@ -69,3 +69,13 @@ Returns an array with all file names and locations in a directory (recursively).
 readDir(dir: string) => Promise<string[]>
 ```
 The promisified version of fs.readdir.
+
+```javascript
+getDirsInDir(dirLocation: string) => Promise<FileDetails[]>
+```
+Returns an array with all sub directories of a directory.
+
+```javascript
+getFilesInDir(dirLocation: string) => Promise<DirectoryDetails[]>
+```
+Returns an array with all items represented either as FileDetails or as DirectoryDetails.
