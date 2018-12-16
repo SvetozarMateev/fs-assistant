@@ -10,11 +10,9 @@ describe("replaceStringInFile()", () => {
     const pathToFile = "./testFile.txt";
 
     beforeEach((done) => {
-        console.log("before")
         fs.writeFile(pathToFile, initialString, (err) => {
             done(err);
         });
-        console.log("File ready")
     })
 
     after(() => {
@@ -23,7 +21,6 @@ describe("replaceStringInFile()", () => {
     })
 
     it("Should resolve the promise when the pattern is a string", async () => {
-        console.log("In Test")
         await assistant.replaceStringInFile(pathToFile, "*", "=");
     });
 

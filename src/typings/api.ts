@@ -8,4 +8,11 @@ export interface AssistantAPI {
     deleteFile: (location: string) => Promise<void>;
     renameFile: (fileLocation: string, newFileName: string) => Promise<void>;
     isPath: (stringToCheck: string) => boolean;
+    getFilesInDir: (dirLocation: string) => Promise<FileDetails[]>;
+    flattenDir: (dirLocations: string, newDirLocations: string) => Promise<void>;
+}
+
+export interface FileDetails {
+    name: string;
+    location: string;
 }

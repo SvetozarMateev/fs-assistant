@@ -94,6 +94,25 @@ class Assistant implements AssistantAPI {
 
         return pfs.isPath(stringToCheck);
     }
+
+    public getFilesInDir = async (dirLocation: string) => {
+        if (typeof dirLocation !== "string") {
+            throw new Error(`The provided path"${dirLocation}" is invalid`);
+        }
+        return await pfs.getAllFilesInDir(dirLocation);
+    }
+
+    public flattenDir = async (dirLocation: string, newDirLocation: string) => {
+        if (typeof dirLocation !== "string") {
+            throw new Error(`The provided path"${dirLocation}" is invalid`);
+        }
+
+        if (typeof newDirLocation !== "string") {
+            throw new Error(`The provided path"${newDirLocation}" is invalid`);
+        }
+
+        await pfs.flattenDir(dirLocation, newDirLocation);
+    }
 }
 
 export default new Assistant();

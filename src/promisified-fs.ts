@@ -9,8 +9,21 @@ import {
     lstatSync
 } from "fs";
 import { join, resolve, dirname } from "path";
+import { FileDetails } from "./typings/api";
 
 class PromisifiedFs {
+
+    public readDir(pathToDir: string): Promise<string[]> {
+        return new Promise((res, rej) => {
+            readdir(pathToDir, (err, files) => {
+                if (err) {
+                    rej(err);
+                }
+
+                res(files);
+            });
+        });
+    }
 
     public readFile(pathToFile: string): Promise<string> {
         return new Promise((res, rej) => {
@@ -123,6 +136,43 @@ class PromisifiedFs {
         }
         // all normal paths
         return /^([.A-Za-z1-9% ]*[\\\/]){1,}([a-zA-Z 1-9%&]+(\.[a-zA-Z1-9]+)*)?$/.test(stringToCheck);
+    }
+
+    public async getAllFilesInDir(location: string): Promise<FileDetails[]> {
+        const files: FileDetails[] = [];
+
+        const traverseDirs = async (currLocation: string) => {
+            const currContents = await this.readDir(currLocation);
+            const traversalPromises = currContents.map(async (dir) => {
+                const currLocationFull = resolve(currLocation, dir);
+                if (lstatSync(currLocationFull).isDirectory()) {
+                    await traverseDirs(currLocationFull);
+                } else {
+                    files.push({
+                        name: dir,
+                        location: currLocationFull
+                    });
+                }
+            });
+            await Promise.all(traversalPromises);
+        };
+
+        await traverseDirs(location);
+
+        return files;
+    }
+
+    public async flattenDir(location: string, newLocation: string) {
+        const allFiles = await this.getAllFilesInDir(location);
+        if (!existsSync(newLocation)) {
+            await this.makeDir(newLocation);
+        }
+
+        const copyFiles = allFiles.map((f) => {
+            return this.copyFile(f.location, resolve(newLocation, f.name));
+        });
+
+        await Promise.all(copyFiles);
     }
 }
 
