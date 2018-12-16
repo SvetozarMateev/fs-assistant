@@ -64,3 +64,8 @@ For example if you have the directory `./myFiles` with a file `./myFiles/myFile.
 getFilesInDir(dirLocations: string) => Promise<FileDetails[]>
 ```
 Returns an array with all file names and locations in a directory (recursively). Note that the location property in FileDetails represents the path + the name of the file.
+
+```javascript
+readDir(dir: string) => Promise<string[]>
+```
+The promisified version of fs.readdir.
