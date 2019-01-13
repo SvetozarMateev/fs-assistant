@@ -5,8 +5,8 @@ module.exports = {
   output: {
     path: path.resolve("./dist"),
     filename: "index.js",
-    library: "fs-assistant",
-    libraryTarget: "umd2"
+    library: "assistant",
+    libraryTarget: "umd"
   },
   target: "node",
 };

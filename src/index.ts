@@ -141,4 +141,4 @@ class Assistant implements AssistantAPI {
     }
 }
 
-export default new Assistant();
+export = new Assistant();

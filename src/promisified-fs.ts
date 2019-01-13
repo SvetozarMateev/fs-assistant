@@ -137,28 +137,6 @@ class PromisifiedFs {
     }
 
     public async getAllFilesInDir(location: string): Promise<FileDetails[]> {
-        // const files: FileDetails[] = [];
-
-        // const traverseDirs = async (currLocation: string) => {
-        //     const currContents = await this.readDir(currLocation);
-        //     const traversalPromises = currContents.map(async (dir) => {
-        //         const currLocationFull = resolve(currLocation, dir);
-        //         if (lstatSync(currLocationFull).isDirectory()) {
-        //             await traverseDirs(currLocationFull);
-        //         } else {
-        //             files.push({
-        //                 name: dir,
-        //                 location: currLocationFull
-        //             });
-        //         }
-        //     });
-        //     await Promise.all(traversalPromises);
-        // };
-
-        // await traverseDirs(location);
-
-        // return files;
-
         const allItems = await this.getItemsInDir(location);
 
         return allItems.filter((i) => i.type === "File");
