@@ -7,7 +7,6 @@ class Assistant implements AssistantAPI {
         if (!pathToFile) {
             throw new Error("The file location has to be specified");
         }
-
         if (!stringPattern) {
             throw new Error("The string pattern has to be specified");
         }
@@ -141,4 +140,4 @@ class Assistant implements AssistantAPI {
     }
 }
 
-export = new Assistant();
+export default new Assistant();

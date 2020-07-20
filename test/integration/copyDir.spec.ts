@@ -1,6 +1,6 @@
 import { resolve, basename } from "path";
 import { mkdirSync, writeFileSync, readdirSync, readFile, readFileSync } from "fs";
-import rimraf = require("rimraf");
+const rimraf = require("rimraf");
 import assistant from "../../src/index";
 import { expect } from "chai";
 

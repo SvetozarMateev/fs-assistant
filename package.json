@@ -1,14 +1,14 @@
 {
   "name": "fs-assistant",
-  "version": "0.1.2",
+  "version": "0.2.4",
   "description": "Making annoying fs operations easier",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
-    "build": "tsc && webpack --config ./build/webpack.config.js && node ./build/scripts/generateTypings.js",
+    "build": "tsc -p ./tsconfig.json && rollup -c",
     "lint": "tslint -c tslint.json  'src/**/*.ts'",
     "test": "npm run test:integration",
-    "test:integration": "mocha --require ts-node/register test/**/*.spec.ts",
+    "test:integration": "tsc -p ./tsconfig.test.json && mocha test/**/*.spec.js",
     "prepare": "npm run build && npm run lint && npm run test"
   },
   "repository": {
@@ -18,16 +18,21 @@
   "author": "Svetozar Mateev",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "@rollup/plugin-typescript": "^5.0.2",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.15",
     "@types/rimraf": "^2.0.2",
     "chai": "^4.2.0",
-    "mocha": "^5.2.0",
+    "mocha": "^8.0.1",
     "rimraf": "^2.6.2",
-    "ts-node": "^7.0.1",
+    "rollup": "^2.22.1",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.1",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.6"
+    "typescript": "^3.9.7"
   },
   "keywords": [
     "node",
@@ -40,5 +45,9 @@
     "path",
     "flatten"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "files": [
+    "dist",
+    "index.d.ts"
+  ]
 }

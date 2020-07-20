@@ -1,6 +1,7 @@
 node_modules/**/*
 testScripts/**/*
-src_js/**/*
-.npmignore
-package-lock.json
+src/**/*.js
+src/**/*.js.map
+test/**/*.js
+test/**/*.js.map
 dist/**/*
