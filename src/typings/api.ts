@@ -13,6 +13,8 @@ export interface AssistantAPI {
     getItemsInDir: (dirLocation: string) => Promise<FileSystemItemDetails[]>;
     flattenDir: (dirLocations: string, newDirLocations: string) => Promise<void>;
     readDir: (dir: string) => Promise<string[]>;
+    getFileSizeInBytes: (location: string) => Promise<number>;
+    getDirSizeInBytes: (location: string) => Promise<number>;
 }
 
 export interface FileDetails {

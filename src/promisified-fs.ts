@@ -6,7 +6,10 @@ import {
     mkdir,
     copyFile,
     readdir,
-    lstatSync
+    lstatSync,
+    statSync,
+    stat,
+    Stats
 } from "fs";
 import { join, resolve, dirname } from "path";
 import { FileDetails, FileSystemItemDetails, DirectoryDetails } from "./typings/api";
@@ -104,6 +107,17 @@ class PromisifiedFs {
                     rej(err);
                 }
                 res();
+            });
+        });
+    }
+
+    public stat(location: string) {
+        return new Promise<Stats>((res, rej) => {
+            stat(location, (err: Error, result) => {
+                if (err) {
+                    rej(err);
+                }
+                res(result);
             });
         });
     }
@@ -206,6 +220,22 @@ class PromisifiedFs {
         });
 
         await Promise.all(copyFiles);
+    }
+
+    public async getFileSizeInBytes(location: string) {
+        const fileStat = await this.stat(location);
+
+        return fileStat.size;
+    }
+
+    public async getDirSizeInBytes(location: string) {
+        const allFiles = await this.getAllFilesInDir(location);
+
+        const fileSizes = await Promise.all(allFiles.map((f) => {
+            return this.getFileSizeInBytes(f.location);
+        }));
+
+        return fileSizes.reduce((s, fs) => s + fs, 0);
     }
 }
 

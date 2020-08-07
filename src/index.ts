@@ -138,6 +138,22 @@ class Assistant implements AssistantAPI {
 
         return await pfs.getItemsInDir(dir);
     }
+
+    public getFileSizeInBytes = async (location: string) => {
+        if (typeof location !== "string") {
+            throw new Error(`The provided path"${location}" is invalid`);
+        }
+
+        return await pfs.getFileSizeInBytes(location);
+    }
+
+    public getDirSizeInBytes = async (location: string) => {
+        if (typeof location !== "string") {
+            throw new Error(`The provided path"${location}" is invalid`);
+        }
+
+        return await pfs.getDirSizeInBytes(location);
+    }
 }
 
 export default new Assistant();
