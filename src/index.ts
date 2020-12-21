@@ -154,6 +154,22 @@ class Assistant implements AssistantAPI {
 
         return await pfs.getDirSizeInBytes(location);
     }
+
+    public delDir = async (location: string) => {
+        if (typeof location !== "string") {
+            throw new Error(`The location argument must be string not ${typeof location}`);
+        }
+
+        return await pfs.delDir(location);
+    }
+
+    public existsSync = (location: string) => {
+        if (typeof location !== "string") {
+            throw new Error(`The location argument must be string not ${typeof location}`);
+        }
+
+        return pfs.existsSync(location);
+    }
 }
 
 export default new Assistant();

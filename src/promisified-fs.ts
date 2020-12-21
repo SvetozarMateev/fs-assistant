@@ -1,3 +1,4 @@
+import { dir } from "console";
 import {
     readFile,
     writeFile,
@@ -7,11 +8,12 @@ import {
     copyFile,
     readdir,
     lstatSync,
-    statSync,
     stat,
-    Stats
+    Stats,
+    rmdir
 } from "fs";
 import { join, resolve, dirname } from "path";
+import fsAssistant from "./export";
 import { FileDetails, FileSystemItemDetails, DirectoryDetails } from "./typings/api";
 
 class PromisifiedFs {
@@ -20,10 +22,10 @@ class PromisifiedFs {
         return new Promise((res, rej) => {
             readdir(pathToDir, (err, files) => {
                 if (err) {
-                    rej(err);
+                    return rej(err);
                 }
 
-                res(files);
+                return res(files);
             });
         });
     }
@@ -81,9 +83,9 @@ class PromisifiedFs {
         return new Promise((res, rej) => {
             mkdir(location, (err: Error) => {
                 if (err) {
-                    rej(err);
+                    return rej(err);
                 }
-                res();
+                return res();
             });
         });
     }
@@ -94,7 +96,7 @@ class PromisifiedFs {
                 if (err) {
                     return rej(err);
                 }
-                res();
+                return res();
             });
         });
 
@@ -104,9 +106,9 @@ class PromisifiedFs {
         return new Promise((res, rej) => {
             unlink(location, (err: Error) => {
                 if (err) {
-                    rej(err);
+                    return rej(err);
                 }
-                res();
+                return res();
             });
         });
     }
@@ -115,9 +117,20 @@ class PromisifiedFs {
         return new Promise<Stats>((res, rej) => {
             stat(location, (err: Error, result) => {
                 if (err) {
-                    rej(err);
+                    return rej(err);
                 }
-                res(result);
+                return res(result);
+            });
+        });
+    }
+
+    public rmDir(location: string) {
+        return new Promise<void>((res, rej) => {
+            rmdir(location, (err: Error) => {
+                if (err) {
+                    return rej(err);
+                }
+                return res();
             });
         });
     }
@@ -236,6 +249,36 @@ class PromisifiedFs {
         }));
 
         return fileSizes.reduce((s, fs) => s + fs, 0);
+    }
+
+    public async delDir(location: string) {
+        const stat = await this.stat(location);
+        if (!stat.isDirectory()) {
+            throw new Error(`delDir expects a directory and the provided location ${location} isn't one`);
+        }
+
+        // TODO add node version check and use rmDir recursive for newer nodes
+        const allFiles = await this.getAllFilesInDir(location);
+
+        await Promise.all(allFiles.map(f => this.deleteFile(f.location)));
+
+        await this.delDirCore(location);
+    }
+
+    public existsSync(location: string) {
+        return existsSync(location);
+    }
+
+    private async delDirCore(location: string) {
+        if (!this.existsSync(location)) {
+            return;
+        }
+
+        const dirs = await this.getDirsInDir(location); // TODO use a non recursive call
+
+        await dirs.reduce((acc, d) => acc.then(() => this.delDirCore(d.location)), Promise.resolve());
+
+        return this.rmDir(location);
     }
 }
 

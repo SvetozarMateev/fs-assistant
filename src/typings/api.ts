@@ -15,6 +15,8 @@ export interface AssistantAPI {
     readDir: (dir: string) => Promise<string[]>;
     getFileSizeInBytes: (location: string) => Promise<number>;
     getDirSizeInBytes: (location: string) => Promise<number>;
+    delDir: (location: string) => Promise<void>;
+    existsSync: (location: string) => boolean;
 }
 
 export interface FileDetails {
