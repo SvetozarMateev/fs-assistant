@@ -9,7 +9,7 @@
     "lint": "tslint -c tslint.json  'src/**/*.ts'",
     "test": "npm run test:integration",
     "test:integration": "tsc -p ./tsconfig.test.json && mocha test/**/*.spec.js",
-    "prepare": "npm run build && npm run lint && npm run test"
+    "prepare": "npm run build && npm run test"
   },
   "repository": {
     "type": "git",

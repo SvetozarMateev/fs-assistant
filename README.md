@@ -86,16 +86,16 @@ getFileSizeInBytes: (location: string) => Promise<number>;
 Returns the file size in bytes.
 
 ```javascript
-    getDirSizeInBytes: (location: string) => Promise<number>;
+getDirSizeInBytes: (location: string) => Promise<number>;
 ```
 Returns the directory size in bytes.
 
 ```javascript
-    delDir: (location: string) => Promise<void>;
+delDir: (location: string) => Promise<void>;
 ```
 Deletes the directory recursively.
 
 ```javascript
-    existsSync: (location: string) => boolean;
+existsSync: (location: string) => boolean;
 ```
 Equivalent to `fs.existsSync()`.
