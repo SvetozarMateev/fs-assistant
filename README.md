@@ -79,3 +79,23 @@ Returns an array with all sub directories of a directory.
 getFilesInDir(dirLocation: string) => Promise<DirectoryDetails[]>
 ```
 Returns an array with all items represented either as FileDetails or as DirectoryDetails.
+
+```javascript
+getFileSizeInBytes: (location: string) => Promise<number>;
+```
+Returns the file size in bytes.
+
+```javascript
+    getDirSizeInBytes: (location: string) => Promise<number>;
+```
+Returns the directory size in bytes.
+
+```javascript
+    delDir: (location: string) => Promise<void>;
+```
+Deletes the directory recursively.
+
+```javascript
+    existsSync: (location: string) => boolean;
+```
+Equivalent to `fs.existsSync()`.
