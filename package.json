@@ -1,6 +1,6 @@
 {
     "name": "fs-assistant",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "description": "Making annoying fs operations easier",
     "main": "dist/index.js",
     "types": "index.d.ts",
